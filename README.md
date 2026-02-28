@@ -1,73 +1,64 @@
-# React + TypeScript + Vite
+# 🏓 BreakfastClub
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A tournament organizer app built for pickleball — manage round robins, brackets, league play, and more.
 
-Currently, two official plugins are available:
+## Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- **Multiple Formats** — Round Robin, Single Elimination, Double Elimination, League Play
+- **Singles & Doubles** — Choose 1v1 or 2v2 with automatic partner randomization
+- **Live Scoring** — Click any match to enter scores with instant standings updates
+- **Close Game Bonus** — Award bonus points for competitive losses within a configurable threshold
+- **Standings Table** — Auto-calculated with W/D/L, goal differential, and medal rankings
+- **Visual Brackets** — Bracket tree view for elimination formats with auto-advancement
+- **Shuffle Per Round** — Optionally re-randomize teams before each league round
+- **Local Persistence** — All data saved in localStorage via Zustand
+- **Dark Mode UI** — Premium dark theme with shadcn/ui components
 
-## React Compiler
+## Tech Stack
 
-The React Compiler is currently not compatible with SWC. See [this issue](https://github.com/vitejs/vite-plugin-react/issues/428) for tracking the progress.
+| Layer     | Tech                                                                            |
+| --------- | ------------------------------------------------------------------------------- |
+| Runtime   | [Bun](https://bun.sh)                                                           |
+| Framework | [React](https://react.dev) + [TypeScript](https://typescriptlang.org)           |
+| Build     | [Vite](https://vite.dev)                                                        |
+| UI        | [shadcn/ui](https://ui.shadcn.com) + [Tailwind CSS v4](https://tailwindcss.com) |
+| State     | [Zustand](https://zustand.docs.pmnd.rs) (localStorage persistence)              |
+| Routing   | [React Router](https://reactrouter.com)                                         |
+| Deploy    | [Vercel](https://vercel.com)                                                    |
 
-## Expanding the ESLint configuration
+## Getting Started
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+```bash
+# Install dependencies
+bun install
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+# Run dev server
+bun run dev
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+# Build for production
+bun run build
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## Project Structure
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
 ```
+src/
+├── assets/          # Logo and static images
+├── components/
+│   ├── ui/          # shadcn/ui components
+│   ├── BracketView  # Elimination bracket visualization
+│   ├── MatchCard    # Match card with score entry dialog
+│   ├── StandingsTable # League standings with medals
+│   └── PartnerRandomizer # Team shuffle display
+├── pages/
+│   ├── Dashboard    # Home with tournament cards
+│   ├── CreateTournament # Multi-step creation wizard
+│   └── TournamentDetail # Tournament view with tabs
+├── store.ts         # Zustand store (CRUD, scoring, standings)
+├── types.ts         # TypeScript interfaces
+└── utils.ts         # Tournament engines (scheduling, brackets)
+```
+
+## License
+
+MIT
